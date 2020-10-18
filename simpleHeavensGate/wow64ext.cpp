@@ -562,3 +562,22 @@ extern "C" __declspec(dllexport) BOOL __cdecl SetThreadContext64(HANDLE hThread,
     else
         return TRUE;
 }
+
+extern "C" __declspec(dllexport) DWORD64 __cdecl CreateProcessEx64(PHANDLE hProcess, DWORD64 accessMask, DWORD64 objectAttributes, HANDLE hParantProc, DWORD64 Flags, HANDLE sectionHandle, HANDLE debugPort, HANDLE exceptionPort, DWORD64 inJob)
+{
+    DWORD64 ntcp = (DWORD64)GetProcAddress64(getNTDLL64(), "NtCreateProcessEx");
+    if (!ntcp) {
+        return -1;
+    }
+
+    DWORD64 ret = X64Call(ntcp, 9, (DWORD64)hProcess, accessMask, objectAttributes, (DWORD64)hParantProc, Flags, (DWORD64)sectionHandle, (DWORD64)debugPort, (DWORD64)exceptionPort, inJob);
+    if (STATUS_SUCCESS != (NTSTATUS)ret)
+    {
+        SetLastErrorFromX64Call(ret);
+        return ret;
+    }
+    else
+    {
+        return ret;
+    }
+}

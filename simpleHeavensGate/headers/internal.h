@@ -28,18 +28,18 @@
 
 #define CPUP_RETURN_FROM_SIMULATED_CODE() \
     { \
-	EMIT(0x6A) EMIT(X64_CS)                         /*  push   _cs             */ \
-    EMIT(0xE8) EMIT(0) EMIT(0) EMIT(0) EMIT(0)   /*  call   $+5             */ \
-    EMIT(0x83) EMIT(4) EMIT(0x24) EMIT(5)        /*  add    dword [esp], 5  */ \
-    EMIT(0xCB)                                   /*  retf                   */ \
+	EMIT(0x6A) EMIT(X64_CS)                             /*  push   _cs             */ \
+    EMIT(0xE8) EMIT(0) EMIT(0) EMIT(0) EMIT(0)          /*  call   $+5             */ \
+    EMIT(0x83) EMIT(4) EMIT(0x24) EMIT(5)               /*  add    dword [esp], 5  */ \
+    EMIT(0xCB)                                          /*  retf                   */ \
     }
 
 #define RUN_SIMULATED_CODE() \
     { \
-    EMIT(0xE8) EMIT(0) EMIT(0) EMIT(0) EMIT(0)                                 /*  call   $+5                   */ \
-	EMIT(0xC7) EMIT(0x44) EMIT(0x24) EMIT(4) EMIT(X86_CS) EMIT(0) EMIT(0) EMIT(0) /*  mov    dword [rsp + 4], _cs  */ \
-    EMIT(0x83) EMIT(4) EMIT(0x24) EMIT(0xD)                                    /*  add    dword [rsp], 0xD      */ \
-    EMIT(0xCB)                                                                 /*  retf                         */ \
+    EMIT(0xE8) EMIT(0) EMIT(0) EMIT(0) EMIT(0)                                      /*  call   $+5                   */ \
+	EMIT(0xC7) EMIT(0x44) EMIT(0x24) EMIT(4) EMIT(X86_CS) EMIT(0) EMIT(0) EMIT(0)   /*  mov    dword [rsp + 4], _cs  */ \
+    EMIT(0x83) EMIT(4) EMIT(0x24) EMIT(0xD)                                         /*  add    dword [rsp], 0xD      */ \
+    EMIT(0xCB)                                                                      /*  retf                         */ \
     }
 
 #define _RAX  0

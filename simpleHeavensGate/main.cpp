@@ -43,7 +43,19 @@ int main(){
 	DWORD64 tid2 = GetCurrentThreadId64();
 	printf("%d\n", tid2);
 
-	DWORD pid = 0;
+	HANDLE chProc = NULL;
+	HANDLE hParent = GetCurrentProcess();
+	DWORD64 res = CreateProcessEx64(
+		&chProc,
+        PROCESS_ALL_ACCESS,
+        NULL,
+        hParent,
+        4,
+        NULL,
+        NULL,
+        NULL,
+        FALSE);
+	
 	if(CreateProcess(L"C:\\Windows\\system32\\notepad.exe", NULL, NULL, NULL, TRUE, CREATE_NEW_CONSOLE, NULL, NULL, &si, &pi)){
 			DWORD pid = pi.dwProcessId;
 			HANDLE hProc = pi.hProcess;
